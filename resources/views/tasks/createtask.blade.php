@@ -31,7 +31,7 @@
   <div class="form-group row">
     <label for="inputPassword3" class="col-md-6 col-form-label"> Task's Date Due</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" name="datedue" value="{{ old('date') }}"  id="inputPassword3" placeholder="Task Description">
+      <input type="date" class="form-control" name="datedue" value="{{ old('datedue') }}"  id="inputPassword3" placeholder="Task Description">
     </div>
   </div>
    {{-- <div class="form-group row">
@@ -59,12 +59,12 @@
 
         <input type="text" name="task_name7" class="form-control"value="{{ old('subtask_name') }}"  id="inputEmail3" placeholder="Sub Task Name"> --}}
      
-  </div>
+ {{--  </div>
 
            
 
       </div>
-
+ --}}
   </div>
 
   

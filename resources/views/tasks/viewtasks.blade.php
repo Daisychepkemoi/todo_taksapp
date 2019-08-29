@@ -14,18 +14,18 @@
       </div>
 <div class="card">
   <div class="card-header text-white bg-success ">
-    View Task
+   My Tasks
   </div>
-  <div class="card-body">
+  
     <table class="table table-bordered" style="width:75%;margin-left: 12.5%;margin-top: 20px;">
                  
                      <thead>
                         <tr class="bg-success">
                         
-                          <th scope="col">Task Name</th>
-                          <th scope="col">Task Description</th>
-                          <th scope="col">Task Status</th>
-                          <th col-span="2">Task Status</th>
+                          <th scope="col">Task_Name</th>
+                          <th scope="col">Task_Description</th>
+                          <th scope="col">Task_Status</th>
+                          <th colspan="4" class="text-center"> Action</th>
                           
                         </tr>
                       </thead>
@@ -37,6 +37,11 @@
                         <td>{{$task->status}}</td>
                         <td><a href="task/{{$task->id}}/viewdetails"><button class="btn-info">View</button></a></td>
                         <td><a href="task/{{$task->id}}/edittask"><button class="btn-primary">Edit</button></a></td>
+                        @if($task->status == 'incomplete')
+                        <td><a href="/task/markcomplete/{{$task->id}}"><button class="btn-warning">Mark_as_Complete</button></a></td>
+                        @else 
+                           <td><a href="/task/markincomplete/{{$task->id}}"><button class="btn-warning">Mark_as_Incomplete</button></a></td>
+                        @endif
                         <td><a href="task/{{$task->id}}/delete"><button class="btn-danger">Delete</button></a></td>
                        
                         
@@ -51,7 +56,7 @@
                         </table>
 
 </div>
-</div>
+
 
     
 

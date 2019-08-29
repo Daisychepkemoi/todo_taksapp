@@ -18,24 +18,30 @@ class TasksController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
         return view("tasks.createtask");
     }
     public function show()
     {
-        $tasks = Tasks::paginate(10);
+        $user = auth()->user();
+        $tasks = Tasks::where('user_id',$user->id)->paginate(10);
         return view("tasks.viewtasks", compact("tasks"));
     }
     public function edittask($id)
     {
+        $user = auth()->user();
         $task = Tasks::find($id);
         return view("tasks.edittask", compact("task"));
     }
      public function saveeditedtask($id)
     {
+       $user = auth()->user();
        $task = Tasks::find($id);
         $task->task_name = request('task_name');
         $task->description = request('description');
         $task->status = request('status');
+        $task->datedue = request('datedue');
+        $task->user_id = $user->id;
         $task->save();
         return redirect('/viewtasks')->with('success', 'Task details edited successfully');
     }
@@ -44,19 +50,10 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
+        $user = auth()->user();
         $validator = Validator::make($request->all(), [
             'task_name' => 'required|unique:tasks|max:120',
             // 'description' => 'required|unique:tasks|max:120',
@@ -70,23 +67,44 @@ class TasksController extends Controller
             $task = new Tasks;
             $task->task_name = $request->task_name;
             $task->description = $request->description;
+            $task->datedue = $request->datedue;
+            $task->user_id = $user->id;
             $task->save();
             }
 
-        return redirect("/createtask")->with("success","task created successfully");
+        return redirect("/viewtasks")->with("success","task created successfully");
 }
 
    
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tasks  $tasks
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tasks $tasks)
+   
+    public function complete()
     {
-        //
+        $user = auth()->user();
+        $tasks = Tasks::where('user_id',$user->id)->where('status', 'complete')->paginate(10);
+        return view('tasks.completed', compact('user','tasks'));
+    }
+    public function incomplete()
+    {
+        $user = auth()->user();
+        $tasks = Tasks::where('user_id',$user->id)->where('status', 'incomplete')->paginate(10);
+        return view('tasks.completed', compact('user','tasks'));
+    }
+     public function markincomplete($id)
+    {
+        $user = auth()->user();
+         DB::table('tasks')->where('id', $id)->update(['status' => 'incomplete']);
+
+        $tasks = Tasks::where('user_id',$user->id)->first();
+        return redirect('/viewtasks')->with('success','Task Status updated successfully');
+    }
+     public function markcomplete($id)
+    {
+        $user = auth()->user();
+         DB::table('tasks')->where('id', $id)->update(['status' =>'complete']);
+        $tasks = Tasks::where('user_id',$user->id)->where('id', $id)->where('status', 'incomplete')->first();
+        return redirect('/viewtasks')->with('success','Task Status updated successfully');
+
     }
 
     /**
@@ -109,6 +127,7 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
+          $user = auth()->user();
         DB::table('tasks')->where('id', $id)->delete();
         DB::table('subtasks')->where('task_id', $id)->delete();
         return redirect('/viewtasks')->with('danger', 'task deleted successfully');

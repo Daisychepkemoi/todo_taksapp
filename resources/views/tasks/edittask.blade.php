@@ -28,16 +28,22 @@
       <input type="text" class="form-control" name="description" value="{{$task->description}}"  id="inputPassword3" placeholder="Task Description">
     </div>
   </div>
+   <div class="form-group row">
+    <label for="inputPassword3" class="col-md-6 col-form-label"> Task Description</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" name="datedue" value="{{$task->datedue}}"  id="inputPassword3" placeholder="Task Description">
+    </div>
+  </div>
   <div class="form-group row">
     <label for="inputPassword3" class="col-md-6 col-form-label"> Task Status</label>
     <div class="col-sm-10">
       <select name="status">
         <option>{{$task->status}}</option>
         @if($task->status == "complete")
-        <option>Complete</option>
+        <option>incomplete</option>
 
         @else
-         <option>Complete</option>
+         <option>complete</option>
          @endif
 
       </select>

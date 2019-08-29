@@ -31,14 +31,23 @@
       </li>
       @auth
       <li class="nav-item">
-        <a class="nav-link" href="#"></a>
+        <a class="nav-link" href="/viewtasks">MyTasks</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/companies">MyTasks</a>
+        <a class="nav-link" href="/task/completed">Completed Tasks</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/companies/employees"></a>
+        <a class="nav-link" href="/task/incomplete">InCompleted Tasks</a>
       </li>
+      {{-- <li class="nav-item">
+        <a class="nav-link" href="/task/incomplete">Overdue Tasks</a>
+      </li> --}}
+        <li class="nav-item">
+        <a class="nav-link" href="/createtask">New Tasks</a>
+      </li>
+       
+                    
+      
        </ul>
        <ul class="navbar-nav " style="float: right;">
        
@@ -48,6 +57,9 @@
       @guest
          <li class="nav-item navbar-right" style="float: right">
              <a class="nav-link" href="{{ route('login') }}">Login</a>
+         </li>
+         <li class="nav-item navbar-right" style="float: right">
+             <a class="nav-link" href="{{ route('register') }}">Register</a>
          </li>
 
      @if (Route::has('register'))
