@@ -29,10 +29,10 @@ Route::get('/task/incomplete', 'TasksController@incomplete');
 Route::get('/task/markcomplete/{id}', 'TasksController@markcomplete');//for incomplete tasks
 Route::get('/task/markincomplete/{id}', 'TasksController@markincomplete');//for complete tasks
 
-Route::get('/task/{id}/viewdetails', 'subtasksController@index');
-Route::post('/savetask/{id}/subtask', 'subtasksController@store');
-Route::get('/subtask/{id}/saveeditedsubtask', 'subtasksController@editsubtask');
-Route::post('/subtask/{id}/saveeditedsubtaskk', 'subtasksController@saveeditedtask');
-Route::get('/subtask/{id}/delete', 'subtasksController@destroy');
+Route::get('/task/{id}/viewdetails', 'SubtasksController@index');
+Route::post('/savetask/{id}/subtask', 'SubtasksController@store');
+Route::get('/subtask/{id}/saveeditedsubtask', 'SubtasksController@editsubtask');
+Route::post('/subtask/{id}/saveeditedsubtaskk', 'SubtasksController@saveeditedtask');
+Route::get('/subtask/{id}/delete', 'SubtasksController@destroy');
 Route::get('/subtask/markcomplete/{id}', 'SubtasksController@markcomplete');//for incomplete tasks
 Route::get('/subtask/markincomplete/{id}', 'SubtasksController@markincomplete');//for complete tasks
