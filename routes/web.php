@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/createtask', 'TasksController@index')->name('createtask');
+Route::post('/savetask', 'TasksController@store')->name('savetask');
+Route::get('/viewtasks', 'TasksController@show');
+Route::get('/task/{{$task->id}}/view', 'TasksController@viewmore');
+Route::get('/task/{id}/edittask', 'TasksController@edittask');
+Route::post('/task/{id}/saveeditedtask', 'TasksController@saveeditedtask');
+Route::get('/task/{id}/delete', 'TasksController@destroy');
